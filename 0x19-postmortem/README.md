@@ -4,6 +4,9 @@ This is the postmortem for the outage that struck the whole infrastructure
 up to 70% of users were affected at first but then the dashboard showed that traffic was delivered to few nodes
 over somewhat sparse periods
 it started 9:37pm(GMT+1) and ended on the same day 11:51pm(GMT+1)
+<a hred="https://github.com/stellarAlien/holbertonschool-system_engineering-devops/tree/main/0x19-postmortem">
+    <img src="https://giphy.com/gifs/artists-on-tumblr-creepy-hurricane-BWCPcs4I0ze9O">
+    </a>
 
 #### outage summary on 20th june 2022(GMT+1):
 as the app has gaiend traction the server instances simlpy couldn't manage the traffic
@@ -12,7 +15,9 @@ so the complaints starte pouring on twitter and the tech lead noticed quickly
  we thought at first that maybe this is a ddos attack but the SRE engineers confirmed otherwise
 ## Timeline(GMT+1):
 the responsible members here are the two senior SRE engineers and the tech lead
-
+<a href="https://github.com/stellarAlien/holbertonschool-system_engineering-devops/tree/main/0x19-postmortem">
+    <img src="https://media0.giphy.com/media/URKBvyEPjDkSLfPKv0/giphy.gif?cid=ecf05e47d5reh34nhp4xg92mcek0tg293neemflx4nh2kyhj&rid=giphy.gif&ct=g">
+    </a>
 9:37pm - internal sserver error for users
 
 9:41pm - making a new branch with the time as name for testing adding django instances
