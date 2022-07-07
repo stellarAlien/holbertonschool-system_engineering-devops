@@ -1,12 +1,30 @@
-#!/usr/bin/env bash
-#https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-22-04
-# install ufw
-sudo apt-get -y install ufw
-sudo sed -i "s/IPV6=no/IPV6=yes/" /etc/default/ufw
-#default policies  
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
-sudo ufw enable
+
+DEFAULT_FORWARD_POLICY="ACCEPT"
+net.ipv4.ip_forward=1
+#net/ipv6/conf/default/forwarding=1
+#net/ipv6/conf/all/forwarding=1
+# NAT table rules
+*nat
+:POSTROUTING ACCEPT [0:0]
+
+# Forward traffic through eth0 - Change to match you out-interface
+-A POSTROUTING -s 192.168.1.0/24 -o eth0 -j MASQUERADE
+
+# don't delete the 'COMMIT' line or these nat table rules won't
+# be processed
+COMMIT
+sudo ufw disable && sudo ufw enable
+# NAT table rules
+*nat
+:PREROUTING ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+
+# Port Forwardings
+-A PREROUTING -i eth0 -p tcp --dport 22 -j DNAT --to-destination 192.168.1.10
+
+# Forward traffic through eth0 - Change to match you out-interface
+-A POSTROUTING -s 192.168.1.0/24 -o eth0 -j MASQUERADE
+
+# don't delete the 'COMMIT' line or these nat table rules won't
+# be processed
+COMMIT >> ~/etc/default/ufw
