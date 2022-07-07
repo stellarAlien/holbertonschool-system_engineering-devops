@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-#  new ubuntu machine to make web server 1 and 2 identical
-#install Nginx
-sudo apt-get -y update
-sudo apt-get -y install  nginx
-sudo chown  $USER:$USER /var/www/html/index.html
+# Installing Nginx on Server
+sudo apt-get update -y && sudo apt-get upgrade -y
+sudo apt-get install -y nginx
+sudo chown -R "$USER":"$USER" /var/www/
 sudo chown -R "$USER":"$USER" /etc/nginx
-sudo echo "Hello World" > /var/www/html/index.nginx-debian.html
-sudo service nginx restart
-sudo sed -i "30i $ADD301_REDIRECT" /etc/nginx/sites-available/default
-line="\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=dQw4w9WgXcQ permanent;"
-sudo sed -i "26i $line" /etc/nginx/sites-available/default
-sed -i '/listen 80 default_server;/add_header X-Served-By $hostname;' /etc/nginx/sites-available/default
-sudo service nginx restart
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+sudo sed -i "/http {/a add_header X-Served-By ${HOSTNAME};" /etc/nginx/nginx.conf
+sudo service nginx reload
+sudo service nginx start
 
 
