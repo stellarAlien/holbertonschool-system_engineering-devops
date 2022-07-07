@@ -2,9 +2,9 @@
 #using this gist https://gist.github.com/kimus/9315140
 DEFAULT_FORWARD_POLICY="ACCEPT"
 net.ipv4.ip_forward=1
-#net/ipv6/conf/default/forwarding=1
-#net/ipv6/conf/all/forwarding=1
-# NAT table rules
+net/ipv6/conf/default/forwarding=1
+net/ipv6/conf/all/forwarding=1
+NAT table rules
 *nat
 :POSTROUTING ACCEPT [0:0]
 
